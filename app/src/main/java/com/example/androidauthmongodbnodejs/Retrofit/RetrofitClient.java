@@ -32,7 +32,7 @@ public class RetrofitClient {
 
         if (instance==null) {
             instance = new Retrofit.Builder()
-                    .baseUrl("http://192.168.0.31:3070/")
+                    .baseUrl("http://172.31.13.11:3070/")
                     .client(okHttpClient)
                     .addConverterFactory(ScalarsConverterFactory.create())
 //                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

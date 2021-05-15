@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#36393F"
+    android:orientation="vertical"
+    android:padding="20dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="378dp"
+        android:layout_height="707dp">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteY="707dp"
+            tools:ignore="MissingConstraints" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="114dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="16dp"
+            android:overlapAnchor="false"
+
+            android:theme="@style/SpinnerTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_stoudent_department" />
+
+        <TextView
+            android:id="@+id/Back_Text2"
+            android:layout_width="106dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="272dp"
+            android:text="뒤로가기"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="582dp" />
+
+        <Button
+            android:id="@+id/register_btn1"
+            android:layout_width="82dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginBottom="88dp"
+            android:background="@drawable/rect_1"
+            android:text="회원가입"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.945"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_phone_number"
+            tools:ignore="UnknownIdInLayout" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edt_student_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="학번 또는 사번 "
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.308"
+            app:met_iconPadding="0dp"
+            app:met_iconRight="@drawable/ic_password"
+            app:met_baseColor="@color/myTextColor"
+            app:met_primaryColor="@color/myTextColor"
+            app:met_textColorHint="@color/myTextColor"
+            tools:ignore="MissingConstraints"></com.rengwuxian.materialedittext.MaterialEditText>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edt_university"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="132dp"
+            android:hint="대학"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:met_baseColor="@color/myTextColor"
+            app:met_iconPadding="0dp"
+            app:met_iconRight="@drawable/ic_user"
+            app:met_primaryColor="@color/myTextColor"
+            app:met_textColorHint="@color/myTextColor"
+            tools:ignore="MissingConstraints">
+
+        </com.rengwuxian.materialedittext.MaterialEditText>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/edt_stoudent_department"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="388dp"
+            android:hint="학과"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_name"
+            app:met_baseColor="@color/myTextColor"
+            app:met_iconPadding="0dp"
+            app:met_primaryColor="@color/myTextColor"
+            app:met_textColorHint="@color/myTextColor"
+            tools:ignore="MissingConstraints,UnknownIdInLayout"></com.rengwuxian.materialedittext.MaterialEditText>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

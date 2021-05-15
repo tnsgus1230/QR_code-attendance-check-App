@@ -42,44 +42,44 @@ public class Main_Screen extends AppCompatActivity {
         params.height = heightPixels;
         img.setLayoutParams(params);
 
-
-        sleep(2000);
-        Intent intent = new Intent(Main_Screen.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+//
+//        sleep(2000);
+//        Intent intent = new Intent(Main_Screen.this, MainActivity.class);
+//        startActivity(intent);
+//        finish();
 
 //        //지문인식--------------------------------------------------------------------------------------
-//        executor = ContextCompat.getMainExecutor(this);
-//        biometricPrompt = new BiometricPrompt(this,
-//                executor, new BiometricPrompt.AuthenticationCallback() {
-//            @Override
-//            public void onAuthenticationError(int errorCode,
-//                                              @NonNull CharSequence errString) {
-//                super.onAuthenticationError(errorCode, errString);
-//                finishAffinity();
-//                System.exit(0);
-//            }
-//            @Override
-//            public void onAuthenticationSucceeded(
-//                    @NonNull BiometricPrompt.AuthenticationResult result) {
-//                super.onAuthenticationSucceeded(result);
-//                sleep(0);
-//                Intent intent = new Intent(Main_Screen.this, MainActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//            @Override
-//            public void onAuthenticationFailed() {
-//                super.onAuthenticationFailed();
-//            }
-//        });
-//        promptInfo = new BiometricPrompt.PromptInfo.Builder()
-//                .setTitle("생체 인증")
-//                .setSubtitle("기기에 등록된 생체 정보을 이용하여 인증해주세요.")
-//                .setNegativeButtonText("Cancel")
-//                .build();
-//
-//        biometricPrompt.authenticate(promptInfo);
+        executor = ContextCompat.getMainExecutor(this);
+        biometricPrompt = new BiometricPrompt(this,
+                executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode,
+                                              @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                finishAffinity();
+                System.exit(0);
+            }
+            @Override
+            public void onAuthenticationSucceeded(
+                    @NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+                sleep(0);
+                Intent intent = new Intent(Main_Screen.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+            }
+        });
+        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("생체 인증")
+                .setSubtitle("기기에 등록된 생체 정보을 이용하여 인증해주세요.")
+                .setNegativeButtonText("Cancel")
+                .build();
+
+        biometricPrompt.authenticate(promptInfo);
     }
 
 

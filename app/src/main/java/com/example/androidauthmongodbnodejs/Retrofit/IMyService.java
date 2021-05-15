@@ -9,11 +9,17 @@ import retrofit2.http.FormUrlEncoded;
 import  retrofit2.http.POST;
 
 public interface IMyService {
-    @POST("register")
+    @POST("api/account/signup")
     @FormUrlEncoded
-    io.reactivex.Observable<String> registerUser(@Field("email") String id,
-                                         @Field("name") String name,
-                                         @Field("password") String pw);
+    Call<ResponseBody> registerUser(@Field("email") String email,
+                                    @Field("name") String name,
+                                    @Field("password") String password,
+                                    @Field("phone") String phone,
+                                    @Field("university") String university,
+                                    @Field("number") String number,
+                                    @Field("department") String department,
+                                    @Field("type") String type);
+
 
 
     @POST("api/account/signin")
@@ -40,16 +46,14 @@ public interface IMyService {
                                     @Field("android") String android,
                                     @Field("usim") String usim);
 
+//    @POST("api/test/")
+//    @FormUrlEncoded
+//    Call<ResponseBody> attendUser(@Field("email") String email,
+//                                  @Field("lectureCode") String lectureCode);
 
 
-    @POST("api/test")
+    @POST("api/attend/passive")
     @FormUrlEncoded
-    io.reactivex.Observable<String> testT(@Field("email") String id,
-                                          @Field("password") String pw);
-
-    @POST("att")
-    @FormUrlEncoded
-    io.reactivex.Observable<String> attrUser(@Field("name") String name,
-                                            @Field("lecture") String lecture);
-
+    Call<ResponseBody> attendUser(@Field("email") String email,
+                                  @Field("lectureCode") String lectureCode);
 }

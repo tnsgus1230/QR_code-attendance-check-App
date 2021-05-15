@@ -28,6 +28,7 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.androidauthmongodbnodejs.register_form.RegisterForm;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.androidauthmongodbnodejs.Retrofit.IMyService;
@@ -180,64 +181,10 @@ public class MainActivity extends AppCompatActivity {
         txt_create_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                View register_layout = LayoutInflater.from(MainActivity.this)
-                        .inflate(R.layout.register_layout, null);
-                new MaterialStyledDialog.Builder(MainActivity.this)
-                        .setIcon(R.drawable.ic_user)
-                        .setTitle("회원가입")
-                        .setDescription("빈칸을 모두 입력해주세요")
-                        .setCustomView(register_layout)
-                        .setNegativeText("취소")
-                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setPositiveText("회원가입")
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                MaterialEditText edt_register_email = (MaterialEditText) register_layout.findViewById(R.id.edt_email);
-                                MaterialEditText edt_register_name = (MaterialEditText) register_layout.findViewById(R.id.edt_name);
-                                MaterialEditText edt_register_password = (MaterialEditText) register_layout.findViewById(R.id.edt_password);
-                                if (TextUtils.isEmpty(edt_register_email.getText().toString())) {
-                                    Toast.makeText(MainActivity.this, "이메일을 입력해주세요", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                if (TextUtils.isEmpty(edt_register_name.getText().toString())) {
-                                    Toast.makeText(MainActivity.this, "이름을 입력해주세요", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                if (TextUtils.isEmpty(edt_register_password.getText().toString())) {
-                                    Toast.makeText(MainActivity.this, "비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                registerUser(edt_register_email.getText().toString(),
-                                        edt_register_name.getText().toString(),
-                                        edt_register_password.getText().toString());
-                            }
-                        }).show();
+                Intent intent = new Intent(MainActivity.this, RegisterForm.class);
+                startActivity(intent);
             }
         });
-    }
-
-    private void registerUser(String email, String name, String password) {
-
-        compositeDisposable.add(iMyService.registerUser(email, name, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String response) throws Exception {
-                        Toast.makeText(MainActivity.this, name + "님 로그인 되었습니다.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, ScanQR3.class);
-                        intent.putExtra("name", name);
-                        startActivity(intent);
-                        finish();
-                        return;
-                    }
-                }));
     }
 
     private void loginUser(String email, String password, Context mContext) {

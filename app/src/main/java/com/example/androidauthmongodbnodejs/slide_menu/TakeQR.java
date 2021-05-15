@@ -41,4 +41,5 @@ public class TakeQR extends Fragment {
         View view = inflater.inflate(R.layout.take_qr, container, false);
         return view;
     }
+
 }

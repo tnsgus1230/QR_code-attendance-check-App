@@ -14,6 +14,20 @@
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
 
+    <!--스피너 칸막이 -->
+    <style name="SpinnerDivideStyle" parent="android:style/Widget.ListView.DropDown">
+        <item name="android:divider">@color/myTextColor</item> <!-- divider 색 -->
+        <item name="android:dividerHeight">2dp</item> <!-- divider 높이 -->
+    </style>
+
+
+    <style name="SpinnerTheme" parent="AppTheme">
+        <item name="android:textColor">@color/myTextColor</item>
+        <item name="android:colorBackground">@color/cardview_shadow_start_color</item>
+        <item name="android:dropDownListViewStyle">@style/SpinnerDivideStyle</item>
+        <!--스피너 칸막이 -->
+    </style>
+
 
 </resources>
 

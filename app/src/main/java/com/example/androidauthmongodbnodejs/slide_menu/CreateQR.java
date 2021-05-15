@@ -85,16 +85,18 @@ public class CreateQR extends Fragment {
                                 }
                             }
                         });
-                        Thread.sleep(3000);
+                        Thread.sleep(500);
                     }
                     catch (InterruptedException e)
                     {
+                        return ;
                         // ooops
                     }
             }
         }).start();
         return view;
     }
+
     public String getJwt(){
         Map<String, Object> headers = new HashMap<>();
         headers.put("typ", "JWT");

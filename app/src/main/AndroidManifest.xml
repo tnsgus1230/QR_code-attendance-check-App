@@ -36,7 +36,8 @@
         <activity android:name=".Main_loggedin" />
         <activity android:name=".ScanQR3" />
         <activity android:name=".MainActivity"/>
-
+        <activity android:name=".register_form.RegisterForm"/>
+        <activity android:name=".register_form.RegisterForm2"/>
 
     </application>
 

@@ -37,9 +37,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import com.example.androidauthmongodbnodejs.slide_menu.CreateQR;
 import com.example.androidauthmongodbnodejs.slide_menu.TakeQR;
+
+import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,7 +54,6 @@ public class ScanQR3 extends AppCompatActivity {
 
     public static Boolean changer = true;
     private CodeScanner mCodeScanner;
-    String name;
     public static String key;
     public static String hash;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -119,7 +124,7 @@ public class ScanQR3 extends AppCompatActivity {
             }
         });
 
-        name = PreferenceManager.getString(this, "name");
+
         hash = PreferenceManager.getString(this, "hashedKey");
         key = PreferenceManager.getString(this, "otp");
 
@@ -195,10 +200,10 @@ public class ScanQR3 extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-//                        attUser(name, result.getText());
+                        attendUserFunc( result.getText());
                         Intent intent = new Intent(ScanQR3.this, Main_loggedin.class);
                         startActivity(intent);
-                        finish();
+
                     }
                 });
             }
@@ -211,30 +216,50 @@ public class ScanQR3 extends AppCompatActivity {
         });
     }
 
-    private void attUser(String name, String qrdata) {
-        compositeDisposable.add(iMyService.attrUser(name, qrdata)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String response) throws Exception {
-                        Toast.makeText(ScanQR3.this, "" + response, Toast.LENGTH_SHORT).show();
-                    }
-                }));
-    }
 
-    private void testTd() {
-        compositeDisposable.add(iMyService.testT("As","asd")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String response) throws Exception {
-                        Toast.makeText(ScanQR3.this, "" + response, Toast.LENGTH_SHORT).show();
-                    }
-                }));
-    }
+    private void attendUserFunc(String qrdata) {
+        try {
+            String email = PreferenceManager.getString(this, "hashedKey");
+            Call<ResponseBody> repos = iMyService.attendUser( email, qrdata);
+            repos.enqueue(new Callback<ResponseBody>() {
 
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Toast.makeText(ScanQR3.this, "처리 되었습니다.", Toast.LENGTH_SHORT).show();
+                    if (response.body() != null) {
+                        try {
+                            ResponseBody body = response.body();
+                            String Rawbody = body.string();
+                            JSONObject jObject = new JSONObject(Rawbody);
+                            String success = jObject.getString("success");
+
+                            if (success.equals(1)) {
+                                Toast.makeText(ScanQR3.this, Rawbody + "출석 되었습니다.", Toast.LENGTH_SHORT).show();
+                            } else if( success.equals(2)) {
+                                Toast.makeText(ScanQR3.this, "지각 되었습니다", Toast.LENGTH_SHORT).show();
+                            }else if(success.equals("4")) {
+                                Toast.makeText(ScanQR3.this, "이미 출석되었습니다", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(ScanQR3.this, "출석 실패", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(ScanQR3.this, "출석 실패", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(ScanQR3.this, "출석 실패", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    //error
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

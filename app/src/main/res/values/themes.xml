@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.AndroidAuthMongoDBNodeJS" parent="Theme.AppCompat.Light">
+        <!-- Primary brand color. -->
+        <item name="windowActionBar">false</item>
+
+
+
+        출처: https://commin.tistory.com/63 [Commin의 일상코딩]
+        <item name="colorPrimary">#36393F</item>
+        <item name="colorPrimaryVariant">#36393F</item>
+        <item name="colorOnPrimary">#36393F</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#36393F</item>
+        <item name="colorSecondaryVariant">#36393F</item>
+        <item name="colorOnSecondary">#36393F</item>
+        <item name="windowNoTitle">true</item>
+
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="ThemeOverlay.AndroidAuthMongoDBNodeJS.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
+        <item name="fullscreenTextColor">@color/light_blue_A200</item>
+    </style>
+</resources>

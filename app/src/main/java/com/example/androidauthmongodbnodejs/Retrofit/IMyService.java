@@ -21,20 +21,20 @@ public interface IMyService {
                                     @Field("type") String type);
 
 
-
     @POST("api/account/signin")
     @FormUrlEncoded
     Call<ResponseBody> login(@Field("email") String email,
                              @Field("password") String password);
 
+
     @POST("api/account/cert/otp")
     @FormUrlEncoded
     Call<ResponseBody> receiveOtp(@Field("hash") String hash);
 
+
     @POST("api/account/cert/otp")
     @FormUrlEncoded
     Call<ResponseBody> loginFido(@Field("signedOtp") String signedOtp);
-
 
 
     @POST("api/account/cert/create")
@@ -46,14 +46,9 @@ public interface IMyService {
                                     @Field("android") String android,
                                     @Field("usim") String usim);
 
-//    @POST("api/test/")
-//    @FormUrlEncoded
-//    Call<ResponseBody> attendUser(@Field("email") String email,
-//                                  @Field("lectureCode") String lectureCode);
-
 
     @POST("api/attend/passive")
     @FormUrlEncoded
-    Call<ResponseBody> attendUser(@Field("email") String email,
+    Call<ResponseBody> attendUser(@Field("hash") String hash,
                                   @Field("lectureCode") String lectureCode);
 }

@@ -68,9 +68,9 @@ public class ScanQR3 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature( Window.FEATURE_NO_TITLE );
-        getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN );
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
 
         FragmentPagerAdapter adapterViewPager;
@@ -93,15 +93,16 @@ public class ScanQR3 extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if(changer){
+                if (changer) {
                     button1.setBackgroundResource(R.drawable.qr_take_icon);
-                    
-                    changer =false;
-                }else{
+
+                    changer = false;
+                } else {
                     button1.setBackgroundResource(R.drawable.qr_code_icon);
-                    changer =true;
+                    changer = true;
                 }
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
 
@@ -111,14 +112,14 @@ public class ScanQR3 extends AppCompatActivity {
         button1.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (changer){
+                if (changer) {
                     button1.setBackgroundResource(R.drawable.qr_take_icon);
                     vpPager.setCurrentItem(1, true);
-                    changer =false;
-                }else{
+                    changer = false;
+                } else {
                     button1.setBackgroundResource(R.drawable.qr_code_icon);
                     vpPager.setCurrentItem(0, true);
-                    changer =true;
+                    changer = true;
                 }
 
             }
@@ -129,8 +130,8 @@ public class ScanQR3 extends AppCompatActivity {
         key = PreferenceManager.getString(this, "otp");
 
         if (ContextCompat.checkSelfPermission(ScanQR3.this, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_DENIED){
-            ActivityCompat.requestPermissions(ScanQR3.this, new String[] {Manifest.permission.CAMERA}, 123);
+                == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(ScanQR3.this, new String[]{Manifest.permission.CAMERA}, 123);
         } else {
             startScanning();
         }
@@ -138,7 +139,7 @@ public class ScanQR3 extends AppCompatActivity {
 
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
-        private  int NUM_ITEMS = 2;
+        private int NUM_ITEMS = 2;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -169,12 +170,12 @@ public class ScanQR3 extends AppCompatActivity {
 
         private void chaingingIcon(Boolean sel) {
             ImageButton button1 = findViewById(R.id.button1);
-            if(sel){
+            if (sel) {
                 button1.setBackgroundResource(R.drawable.qr_take_icon);
-                changer =false;
-            }else{
+                changer = false;
+            } else {
                 button1.setBackgroundResource(R.drawable.qr_code_icon);
-                changer =true;
+                changer = true;
             }
         }
 
@@ -188,8 +189,6 @@ public class ScanQR3 extends AppCompatActivity {
     }
 
 
-
-
     private void startScanning() {
         CodeScannerView scannerView = findViewById(R.id.scanner_view1);
         mCodeScanner = new CodeScanner(this, scannerView);
@@ -200,10 +199,9 @@ public class ScanQR3 extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        attendUserFunc( result.getText());
+                        attendUserFunc(result.getText());
                         Intent intent = new Intent(ScanQR3.this, Main_loggedin.class);
                         startActivity(intent);
-
                     }
                 });
             }
@@ -219,8 +217,8 @@ public class ScanQR3 extends AppCompatActivity {
 
     private void attendUserFunc(String qrdata) {
         try {
-            String email = PreferenceManager.getString(this, "hashedKey");
-            Call<ResponseBody> repos = iMyService.attendUser( email, qrdata);
+            String hashedKey = PreferenceManager.getString(this, "hashedKey");
+            Call<ResponseBody> repos = iMyService.attendUser(hashedKey, qrdata);
             repos.enqueue(new Callback<ResponseBody>() {
 
                 @Override
@@ -233,14 +231,14 @@ public class ScanQR3 extends AppCompatActivity {
                             JSONObject jObject = new JSONObject(Rawbody);
                             String success = jObject.getString("success");
 
-                            if (success.equals(1)) {
-                                Toast.makeText(ScanQR3.this, Rawbody + "출석 되었습니다.", Toast.LENGTH_SHORT).show();
-                            } else if( success.equals(2)) {
+                            if (success.equals("attend")) {
+                                Toast.makeText(ScanQR3.this, Rawbody + "출석 되었습니다", Toast.LENGTH_SHORT).show();
+                            } else if (success.equals("late")) {
                                 Toast.makeText(ScanQR3.this, "지각 되었습니다", Toast.LENGTH_SHORT).show();
-                            }else if(success.equals("4")) {
+                            } else if (success.equals("already")) {
                                 Toast.makeText(ScanQR3.this, "이미 출석되었습니다", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(ScanQR3.this, "출석 실패", Toast.LENGTH_SHORT).show();
+                            } else if (success.equals("absent")) {
+                                Toast.makeText(ScanQR3.this, "결석 되었습니다", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                             Toast.makeText(ScanQR3.this, "출석 실패", Toast.LENGTH_SHORT).show();
@@ -277,14 +275,14 @@ public class ScanQR3 extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(mCodeScanner != null) {
+        if (mCodeScanner != null) {
             mCodeScanner.startPreview();
         }
     }
 
     @Override
     protected void onPause() {
-        if(mCodeScanner != null) {
+        if (mCodeScanner != null) {
             mCodeScanner.releaseResources();
         }
         super.onPause();

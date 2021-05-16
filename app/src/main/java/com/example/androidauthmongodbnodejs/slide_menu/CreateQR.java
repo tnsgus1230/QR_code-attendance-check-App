@@ -43,7 +43,7 @@ public class CreateQR extends Fragment {
         args.putInt("someInt", page);
         args.putString("someTitle", title);
         fragment.setArguments(args);
-        key = receivedKey + receivedKey + receivedKey + receivedKey + receivedKey + receivedKey + receivedKey + receivedKey;
+        key = receivedKey;
         hashed = hash;
         return fragment;
     }

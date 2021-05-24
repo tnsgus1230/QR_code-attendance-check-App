@@ -38,6 +38,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".register_form.RegisterForm"/>
         <activity android:name=".register_form.RegisterForm2"/>
+        <activity android:name=".My_Class_Information"/>
 
     </application>
 

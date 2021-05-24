@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
         Context mContext = this;
 
+
         String text = PreferenceManager.getString(mContext, "first");
         if (text.equals("")) {
             firstSignal = true;
@@ -209,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject jObject = new JSONObject(Rawbody);
                             Boolean success = jObject.getBoolean("success");
                             if (success) {
+
                                 String type = jObject.getString("type");
                                 String name = jObject.getString("name");
                                 String email = jObject.getString("email");
@@ -262,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
             PreferenceManager.setString(mContext, "storedKey", MakeFIDO.storedKey);
             PreferenceManager.setString(mContext, "hashedKey", MakeFIDO.hashedKey);
             PreferenceManager.setString(mContext, "iv", Base64.encodeToString(MakeFIDO.iv, Base64.DEFAULT));
-            PreferenceManager.setString(mContext, "first", "false");
+
             Call<ResponseBody> repos = iMyService.registerFido(email, password, MakeFIDO.hashedKey, MakeFIDO.publicKEY, android_id, usim);
             repos.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -274,11 +276,11 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject jObject = new JSONObject(Rawbody);
                             Boolean success = jObject.getBoolean("success");
                             if (success) {
+                                PreferenceManager.setString(mContext, "first", "false");
                                 finishAffinity();
                                 Intent intent = getIntent();
                                 startActivity(intent);
                                 System.exit(0);
-
                             } else {
                                 Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                             }
@@ -318,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
                             if (success) {
                                 String otp = jObject.getString("otp");
                                 PreferenceManager.setString(mContext, "otp", otp);
-
+                                loginFIDOHelper(mContext);
                             } else {
                                 Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                             }
@@ -339,13 +341,61 @@ public class MainActivity extends AppCompatActivity {
             throw e;
         }
 
+//        try {
+//            String hashedKey = PreferenceManager.getString(mContext, "hashedKey");
+//            String otp = PreferenceManager.getString(mContext, "otp");
+//            String storedKey = PreferenceManager.getString(mContext, "storedKey");
+//            String iv = PreferenceManager.getString(mContext, "iv");
+//            byte[] byteIv =  Base64.decode(iv.getBytes(), Base64.DEFAULT);
+//            VerifyFIDO verifyFIDO  = new VerifyFIDO(otp,storedKey,byteIv);
+//            Call<ResponseBody> repos = iMyService.loginFido(VerifyFIDO.signedOtp, hashedKey);
+//            repos.enqueue(new Callback<ResponseBody>() {
+//                @Override
+//                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                    if (response.body() != null) {
+//                        try {
+//                            ResponseBody body = response.body();
+//                            String Rawbody = body.string();
+//                            JSONObject jObject = new JSONObject(Rawbody);
+//                            Boolean success = jObject.getBoolean("success");
+//                            if (success) {
+//                                Intent intent = new Intent(MainActivity.this, ScanQR3.class);
+//                                startActivity(intent);
+//                                finish();
+//                            } else {
+//                                Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        } catch (Exception e) {
+//                            Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+//                        }
+//                    } else {
+//                        Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//                @Override
+//                public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                    //error
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw e;
+//        }
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void loginFIDOHelper(Context mContext) {
         try {
+            String hashedKey = PreferenceManager.getString(mContext, "hashedKey");
             String otp = PreferenceManager.getString(mContext, "otp");
             String storedKey = PreferenceManager.getString(mContext, "storedKey");
             String iv = PreferenceManager.getString(mContext, "iv");
             byte[] byteIv =  Base64.decode(iv.getBytes(), Base64.DEFAULT);
             VerifyFIDO verifyFIDO  = new VerifyFIDO(otp,storedKey,byteIv);
-            Call<ResponseBody> repos = iMyService.loginFido(VerifyFIDO.signedOtp);
+            Call<ResponseBody> repos = iMyService.loginFido(VerifyFIDO.signedOtp, hashedKey);
             repos.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -356,18 +406,32 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject jObject = new JSONObject(Rawbody);
                             Boolean success = jObject.getBoolean("success");
                             if (success) {
+                                String type = jObject.getString("type");
+                                String name = jObject.getString("name");
+                                String email = jObject.getString("email");
+                                String uni = jObject.getString("university");
+                                String department = jObject.getString("department");
+                                String number = jObject.getString("number");
+
+                                PreferenceManager.setString(mContext, "type", type);
+                                PreferenceManager.setString(mContext, "name", name);
+                                PreferenceManager.setString(mContext, "email", email);
+                                PreferenceManager.setString(mContext, "university", uni);
+                                PreferenceManager.setString(mContext, "department", department);
+                                PreferenceManager.setString(mContext, "number", number);
+
                                 Intent intent = new Intent(MainActivity.this, ScanQR3.class);
                                 startActivity(intent);
                                 finish();
                             } else {
-                                Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "1로그인 실패", Toast.LENGTH_SHORT).show();
 
                             }
                         } catch (Exception e) {
-                            Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "2로그인 실패", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "3로그인 실패", Toast.LENGTH_SHORT).show();
                     }
                 }
                 @Override

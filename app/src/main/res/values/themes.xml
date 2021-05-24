@@ -2,23 +2,14 @@
     <!-- Base application theme. -->
     <style name="Theme.AndroidAuthMongoDBNodeJS" parent="Theme.AppCompat.Light">
         <!-- Primary brand color. -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
         <item name="windowActionBar">false</item>
-
-
-
-        출처: https://commin.tistory.com/63 [Commin의 일상코딩]
-        <item name="colorPrimary">#36393F</item>
-        <item name="colorPrimaryVariant">#36393F</item>
-        <item name="colorOnPrimary">#36393F</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#36393F</item>
-        <item name="colorSecondaryVariant">#36393F</item>
-        <item name="colorOnSecondary">#36393F</item>
         <item name="windowNoTitle">true</item>
 
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
         <!-- Customize your theme here. -->
     </style>
 

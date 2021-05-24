@@ -42,6 +42,8 @@ public class Main_Screen extends AppCompatActivity {
         params.height = heightPixels;
         img.setLayoutParams(params);
 
+        
+
 //
 //        sleep(2000);
 //        Intent intent = new Intent(Main_Screen.this, MainActivity.class);

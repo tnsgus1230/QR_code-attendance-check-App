@@ -2,15 +2,12 @@ package com.example.androidauthmongodbnodejs;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -31,12 +28,10 @@ import com.example.androidauthmongodbnodejs.scantool.CodeScanner;
 import com.example.androidauthmongodbnodejs.scantool.CodeScannerView;
 import com.example.androidauthmongodbnodejs.scantool.DecodeCallback;
 import com.example.androidauthmongodbnodejs.sharedpreferences.PreferenceManager;
+import com.example.androidauthmongodbnodejs.slide_menu.My_Class_List;
 import com.google.zxing.Result;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,11 +39,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import com.example.androidauthmongodbnodejs.slide_menu.CreateQR;
 import com.example.androidauthmongodbnodejs.slide_menu.TakeQR;
+import com.example.androidauthmongodbnodejs.slide_menu.My_Class_List;
 
 import org.json.JSONObject;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ScanQR3 extends AppCompatActivity {
 
@@ -101,6 +95,11 @@ public class ScanQR3 extends AppCompatActivity {
                     button1.setBackgroundResource(R.drawable.qr_code_icon);
                     changer = true;
                 }
+
+                if (position == 2) {
+                    Intent intent = new Intent(ScanQR3.this, Main_loggedin.class);
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -139,7 +138,7 @@ public class ScanQR3 extends AppCompatActivity {
 
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
-        private int NUM_ITEMS = 2;
+        private int NUM_ITEMS = 3;
 
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -158,11 +157,11 @@ public class ScanQR3 extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-
                     return TakeQR.newInstance(0, "Page # 1");
                 case 1:
-
                     return CreateQR.newInstance(1, "Page # 2", key, hash);
+                case 2:
+                    return My_Class_List.newInstance(2,"page # 3");
                 default:
                     return null;
             }
@@ -182,8 +181,6 @@ public class ScanQR3 extends AppCompatActivity {
         // Returns the page title for the top indicator
         @Override
         public CharSequence getPageTitle(int position) {
-
-
             return "Page " + position;
         }
     }
@@ -223,28 +220,28 @@ public class ScanQR3 extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Toast.makeText(ScanQR3.this, "처리 되었습니다.", Toast.LENGTH_SHORT).show();
+
                     if (response.body() != null) {
                         try {
                             ResponseBody body = response.body();
                             String Rawbody = body.string();
                             JSONObject jObject = new JSONObject(Rawbody);
-                            String success = jObject.getString("success");
+                            String data = jObject.getString("data");
 
-                            if (success.equals("attend")) {
+                            if (data.equals("attend")) {
                                 Toast.makeText(ScanQR3.this, Rawbody + "출석 되었습니다", Toast.LENGTH_SHORT).show();
-                            } else if (success.equals("late")) {
+                            } else if (data.equals("late")) {
                                 Toast.makeText(ScanQR3.this, "지각 되었습니다", Toast.LENGTH_SHORT).show();
-                            } else if (success.equals("already")) {
+                            } else if (data.equals("already")) {
                                 Toast.makeText(ScanQR3.this, "이미 출석되었습니다", Toast.LENGTH_SHORT).show();
-                            } else if (success.equals("absent")) {
+                            } else if (data.equals("absent")) {
                                 Toast.makeText(ScanQR3.this, "결석 되었습니다", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                             Toast.makeText(ScanQR3.this, "출석 실패", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(ScanQR3.this, "출석 실패", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ScanQR3.this, "2 출석 실패", Toast.LENGTH_SHORT).show();
                     }
                 }
 

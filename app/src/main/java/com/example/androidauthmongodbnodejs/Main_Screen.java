@@ -44,8 +44,8 @@ public class Main_Screen extends AppCompatActivity {
 
         
 
-//
-//        sleep(2000);
+
+
 //        Intent intent = new Intent(Main_Screen.this, MainActivity.class);
 //        startActivity(intent);
 //        finish();

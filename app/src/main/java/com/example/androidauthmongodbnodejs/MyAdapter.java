@@ -35,6 +35,7 @@ class MyAdapter  extends RecyclerView.Adapter<MyAdapter.ViewHolder>{ //
         public TextView mClass;
         public TextView mPlace;
         public TextView mprofessor;
+        public TextView nowPlaying;
         public ImageView mPhoto; //전공,교양등 강의종류에 따라 적합한 이미지를 넣어주는게 나쁘지 않을듯
 
         public ViewHolder(View v) {
@@ -45,7 +46,8 @@ class MyAdapter  extends RecyclerView.Adapter<MyAdapter.ViewHolder>{ //
             mClass = (TextView) v.findViewById(R.id.info_class);
             mPlace = (TextView) v.findViewById(R.id.info_place);
             mprofessor= (TextView) v.findViewById(R.id.info_professor);
-            mPhoto = (ImageView) v.findViewById(R.id.iv_photo); //넣을까 말까
+            nowPlaying= (TextView) v.findViewById(R.id.nowplaying);
+//            mPhoto = (ImageView) v.findViewById(R.id.iv_photo); //넣을까 말까
 
 
             //클릭 이벤트 구간
@@ -90,7 +92,8 @@ class MyAdapter  extends RecyclerView.Adapter<MyAdapter.ViewHolder>{ //
         holder.mDepartment.setText(mDataset.get(position).getProfessorName() + " 교수님");
         holder.mClass.setText(mDataset.get(position).getLectureClass());
         holder.mPlace.setText(mDataset.get(position).getType());
-        holder.mprofessor.setText("출석 : "+mDataset.get(position).getAttend());
+        holder.mprofessor.setText(mDataset.get(position).getAttend());
+        holder.nowPlaying.setText("강의가 진행중 입니다!");
         //holder.mPhoto.setImageBitmap(mDataset.get(position).getPhoto()); //첨부된 이미지를 연결해줘야 하는데
 
     }

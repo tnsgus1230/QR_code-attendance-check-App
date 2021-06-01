@@ -72,15 +72,21 @@
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.90"
+        >
 
         <ImageButton
             android:id="@+id/button1"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="750dp"
             android:background="@drawable/qr_code_icon"
             tools:ignore="MissingConstraints" />
 

@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".My_Class_Information">
 
+    <TextView
+        android:id="@+id/text2"
+        android:text="강의 상세 페이지 및 출석 주차 정보가 출력될 예정입니다."
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:textSize="40sp"
+        android:textStyle="bold">
+    </TextView>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,8 +27,9 @@
             android:layout_gravity="center"
             android:textSize="40sp"
             android:textStyle="bold">
-
         </TextView>
+
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

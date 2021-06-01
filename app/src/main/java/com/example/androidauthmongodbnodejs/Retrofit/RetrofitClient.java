@@ -31,7 +31,7 @@ public class RetrofitClient {
 
         if (instance==null) {
             instance = new Retrofit.Builder()
-                    .baseUrl("http://172.31.13.11:3000/")
+                    .baseUrl("http://192.168.0.31:3070/")
 //                    .baseUrl("https://www.babyforce.xyz/")
                     .client(okHttpClient)
                     .addConverterFactory(ScalarsConverterFactory.create())

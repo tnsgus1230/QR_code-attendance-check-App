@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     private BiometricPrompt.PromptInfo promptInfo;
 
     Boolean firstSignal = false;
-
     TextView txt_create_account;
     MaterialEditText edt_login_email, edt_login_password;
 
@@ -184,6 +183,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, RegisterForm.class);
                 startActivity(intent);
+               // overridePendingTransition(R.anim.slide_out_right,R.anim.slide_out_right);
+
+
+
             }
         });
     }

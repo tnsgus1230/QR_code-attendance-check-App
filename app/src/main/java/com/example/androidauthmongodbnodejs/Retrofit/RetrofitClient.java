@@ -32,7 +32,7 @@ public class RetrofitClient {
 
         if (instance==null) {
             instance = new Retrofit.Builder()
-                    .baseUrl("http://10.0.2.2:3080/")  //유동적으로 바꿔줄것
+                    .baseUrl("https://www.babyforce.xyz/")
                     .client(okHttpClient)
                     .addConverterFactory(ScalarsConverterFactory.create())
 //                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

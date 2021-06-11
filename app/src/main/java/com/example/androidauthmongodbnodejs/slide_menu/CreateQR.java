@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidauthmongodbnodejs.R;
@@ -25,6 +26,10 @@ import java.util.Map;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import android.util.Log;
+import com.ramotion.circlemenu.CircleMenuView;
+
 //중간 슬레이드 메뉴
 
 public class CreateQR extends Fragment {
@@ -60,6 +65,46 @@ public class CreateQR extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.create_qr, container, false);
+//        final CircleMenuView menu =view.findViewById(R.id.circle_menu);
+//        menu.setEventListener(new CircleMenuView.EventListener(){
+//            @Override
+//            public void onMenuOpenAnimationStart(@NonNull CircleMenuView view) {
+//                Log.d("D","onMenuOpenAnimationStart");
+//            }
+//            @Override
+//            public void onMenuOpenAnimationEnd(@NonNull CircleMenuView view) {
+//                Log.d("D","onMenuOpenAnimationEnd");
+//            }
+//            @Override
+//            public void onMenuCloseAnimationStart(@NonNull CircleMenuView view) {
+//                Log.d("D","onMenuCloseAnimationStart");
+//            }
+//            @Override
+//            public void onMenuCloseAnimationEnd(@NonNull CircleMenuView view) {
+//                Log.d("D","onMenuCloseAnimationEnd");
+//            }
+//            @Override
+//            public void onButtonClickAnimationStart(@NonNull CircleMenuView view, int index) {
+//                Log.d("D","onButtonClickAnimationStart|index: "+index);
+//            }
+//            @Override
+//            public void onButtonClickAnimationEnd(@NonNull CircleMenuView view, int index) {
+//                Log.d("D","onButtonClickAnimationEnd|index: "+index);
+//            }
+//            @Override
+//            public boolean onButtonLongClick(@NonNull CircleMenuView view, int buttonIndex) {
+//                Log.d("D","onButtonLongClick|index: "+buttonIndex);
+//                return true;
+//            }
+//            @Override
+//            public void onButtonLongClickAnimationStart(@NonNull CircleMenuView view, int buttonIndex) {
+//                Log.d("D","onButtonLongClickAnimationStart|index: "+buttonIndex);
+//            }
+//            @Override
+//            public void onButtonLongClickAnimationEnd(@NonNull CircleMenuView view, int buttonIndex) {
+//                Log.d("D","onButtonLongClickAnimationEnd|index: "+buttonIndex);
+//            }
+//        });
         iv = (ImageView) view.findViewById(R.id.qrcode1);
 
         new Thread(new Runnable()

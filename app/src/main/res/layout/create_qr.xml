@@ -8,6 +8,7 @@
     tools:context=".ScanQR3">
 
 
+
     <com.example.androidauthmongodbnodejs.scantool.CodeScannerView
         android:id="@+id/scanner_view1"
         android:layout_width="match_parent"

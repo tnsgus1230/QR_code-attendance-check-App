@@ -33,6 +33,8 @@ android {
 }
 
 dependencies {
+    //circle menu(원형메뉴)
+    implementation 'com.ramotion.circlemenu:circle-menu:0.3.2'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.2.0'
@@ -90,6 +92,8 @@ dependencies {
 
     //블러효과 ㅠ
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
+
+
 
 
     //슬라이드 컨텐츠

@@ -1,13 +1,17 @@
 package com.example.androidauthmongodbnodejs;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -41,6 +45,9 @@ import com.example.androidauthmongodbnodejs.slide_menu.CreateQR;
 import com.example.androidauthmongodbnodejs.slide_menu.TakeQR;
 import com.example.androidauthmongodbnodejs.slide_menu.My_Class_List;
 
+import android.util.Log;
+import com.ramotion.circlemenu.CircleMenuView;
+
 import org.json.JSONObject;
 
 
@@ -62,14 +69,71 @@ public class ScanQR3 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
-
+        transparentStatusAndNavigation();
         FragmentPagerAdapter adapterViewPager;
-
         setContentView(R.layout.activity_scan_q_r3);
+        final CircleMenuView menu = findViewById(R.id.circle_menu);
+        menu.setEventListener(new CircleMenuView.EventListener(){
+            @Override
+            public void onMenuOpenAnimationStart(@NonNull CircleMenuView view) {
+                Log.d("D","onMenuOpenAnimationStart");
+            }
+            @Override
+            public void onMenuOpenAnimationEnd(@NonNull CircleMenuView view) {
+                Log.d("D","onMenuOpenAnimationEnd");
+
+            }
+            @Override
+            public void onMenuCloseAnimationStart(@NonNull CircleMenuView view) {
+                Log.d("D","onMenuCloseAnimationStart");
+
+            }
+            @Override
+            public void onMenuCloseAnimationEnd(@NonNull CircleMenuView view) {
+                Log.d("D","onMenuCloseAnimationEnd");
+            }
+            @Override
+            public void onButtonClickAnimationStart(@NonNull CircleMenuView view, int index) {
+                Log.d("D","onButtonClickAnimationStart|index: "+index);
+
+            }
+            @Override
+            public void onButtonClickAnimationEnd(@NonNull CircleMenuView view, int index) {
+                // 로그아웃 아이콘은 톱니아이콘모양임 로그아웃시 자동으로 로그인됨
+                Log.d("D","onButtonClickAnimationEnd|index: "+index);
+                new AlertDialog.Builder(ScanQR3.this)
+                        .setTitle("로그아웃").setMessage("로그아웃 하시겠습니까?")
+                        .setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                Intent i = new Intent(ScanQR3.this, MainActivity.class/*이동 액티비티 위치*/);
+                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                startActivity(i);
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                            }
+                        })
+                        .show();
+            }
+            @Override
+            public boolean onButtonLongClick(@NonNull CircleMenuView view, int buttonIndex) {
+                Log.d("D","onButtonLongClick|index: "+buttonIndex);
+                return true;
+            }
+            @Override
+            public void onButtonLongClickAnimationStart(@NonNull CircleMenuView view, int buttonIndex) {
+                Log.d("D","onButtonLongClickAnimationStart|index: "+buttonIndex);
+
+            }
+            @Override
+            public void onButtonLongClickAnimationEnd(@NonNull CircleMenuView view, int buttonIndex) {
+                Log.d("D","onButtonLongClickAnimationEnd|index: "+buttonIndex);
+            }
+        });
 
         ImageButton button1 = findViewById(R.id.button1);
         Retrofit retrofitClient = RetrofitClient.getInstance(this);
@@ -283,5 +347,37 @@ public class ScanQR3 extends AppCompatActivity {
             mCodeScanner.releaseResources();
         }
         super.onPause();
+    }
+
+    private void transparentStatusAndNavigation() {
+        //make full transparent statusBar
+        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+            setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, true);
+        }
+        if (Build.VERSION.SDK_INT >= 19) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            );
+        }
+        if (Build.VERSION.SDK_INT >= 21) {
+            setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, false);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+            getWindow().setNavigationBarColor(Color.TRANSPARENT);
+        }
+    }
+
+    private void setWindowFlag(final int bits, boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 }

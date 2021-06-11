@@ -3,29 +3,50 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.ramotion.circlemenu.CircleMenuView
+        android:id="@+id/circle_menu"
+        android:layout_width="124dp"
+        android:layout_height="112dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginBottom="600dp"
+        app:button_colors="@array/colors"
+        app:button_icons="@array/icons"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintHorizontal_bias="1.0"
+        card_view:layout_constraintVertical_bias="0.0" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-        android:layout_width="358dp"
-        android:layout_height="459dp"
+        android:layout_width="367dp"
+        android:layout_height="539dp"
         android:layout_gravity="center"
-        android:layout_margin="0dp"
+        card_view:cardElevation="5dp"
+        card_view:cardUseCompatPadding="true"
         card_view:cardBackgroundColor="#4D4E57"
-        card_view:cardCornerRadius="10dp"
+        card_view:cardCornerRadius="7dp"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="parent"
-        card_view:layout_constraintVertical_bias="0.735"
+        card_view:layout_constraintVertical_bias="0.5"
+        card_view:layout_constraintHorizontal_bias="0.5"
+
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/iv_photo"
+            android:id="@+id/row_wallet_redeem_img"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="300dp"
-            android:src="@mipmap/ic_launcher_round" />
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/card_background" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -35,34 +56,47 @@
 
             <TextView
                 android:id="@+id/info_name"
-                android:layout_width="298dp"
-                android:layout_height="161dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="48dp"
+                android:layout_width="319dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="132dp"
+                android:layout_marginEnd="20dp"
                 android:textColor="@color/white"
-                android:textSize="46sp"
+                android:textSize="35sp"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/info_department"
-                android:layout_width="273dp"
-                android:layout_height="42dp"
-                android:layout_marginTop="132dp"
-                android:layout_marginEnd="68dp"
+                android:layout_width="272dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="208dp"
+                android:layout_marginEnd="64dp"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
+
             <TextView
                 android:id="@+id/info_class"
-                android:layout_width="102dp"
-                android:layout_height="42dp"
-                android:layout_marginTop="92dp"
-                android:layout_marginEnd="240dp"
+                android:layout_width="272dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="244dp"
+                android:layout_marginEnd="64dp"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textSize="20sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/nowplaying"
+                android:layout_width="243dp"
+                android:layout_height="37dp"
+                android:layout_marginTop="329dp"
+                android:layout_marginEnd="21dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -70,22 +104,63 @@
                 android:id="@+id/info_place"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="272dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="20dp"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="35sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:layout_width="107dp"
+                android:layout_height="77dp"
+                android:layout_marginTop="384dp"
+                android:layout_marginEnd="120dp"
+                android:text="최근 출석"
+                android:textColor="@color/white"
+                android:textSize="25sp"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/info_professor"
-                android:layout_width="259dp"
-                android:layout_height="164dp"
-                android:layout_marginTop="236dp"
-                android:layout_marginEnd="48dp"
+                android:layout_width="131dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="420dp"
+                android:layout_marginEnd="96dp"
                 android:textColor="@color/white"
                 android:textSize="45sp"
                 card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_photo"
+                android:layout_width="104dp"
+                android:layout_height="105dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/class_pro"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+
+                android:layout_width="360dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="196dp"
+                android:src="@drawable/line"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+
+                android:layout_width="308dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="316dp"
+                android:src="@drawable/rect"
+                card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
 

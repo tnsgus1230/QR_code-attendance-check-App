@@ -1,6 +1,7 @@
 package com.example.androidauthmongodbnodejs;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -39,6 +40,7 @@ import com.example.androidauthmongodbnodejs.sharedpreferences.PreferenceManager;
 import com.example.androidauthmongodbnodejs.fido.MakeFIDO;
 import com.example.androidauthmongodbnodejs.fido.RSA;
 import com.example.androidauthmongodbnodejs.fido.VerifyFIDO;
+
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -133,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
             permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
             permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
             permissions.add(Manifest.permission.READ_PHONE_STATE);
+            permissions.add(Manifest.permission.READ_PHONE_NUMBERS);
             permissions.add(Manifest.permission.INTERNET);
             permissions.add(Manifest.permission.LOCATION_HARDWARE);
 
@@ -152,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         edt_login_email = (MaterialEditText) findViewById(R.id.edt_email);
         edt_login_password = (MaterialEditText) findViewById(R.id.edt_password);
 
-        if (!firstSignal){
+        if (!firstSignal) {
             loginFIDO(mContext);
         }
 
@@ -260,9 +263,22 @@ public class MainActivity extends AppCompatActivity {
         try {
 
             String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+//
+//            String android_id = "dummy";
             TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-            String usim = tm.getSimSerialNumber();
-
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            @SuppressLint("HardwareIds") String usim = tm.getLine1Number();
+            Toast.makeText(MainActivity.this, Integer.toString(tm.getSimState()), Toast.LENGTH_SHORT).show(); //1이며 실행불가
+//            String usim = "asdasd";
             MakeFIDO makeFIDO = new MakeFIDO();
             PreferenceManager.setString(mContext, "storedKey", MakeFIDO.storedKey);
             PreferenceManager.setString(mContext, "hashedKey", MakeFIDO.hashedKey);

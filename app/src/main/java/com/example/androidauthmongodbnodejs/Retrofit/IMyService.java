@@ -62,7 +62,8 @@ public interface IMyService {
     Call<ResponseBody> myLectureList(@Field("email") String email);
 
 
-    @GET("api/lecture/student/lectureInfo/{code}")
-    Call<ResponseBody> getLectureInfo(@Path("code") String code);
+    @POST("api/lecture/student/lectureinfo")
+    @FormUrlEncoded
+    Call<ResponseBody> getLectureInfo(@Field("code") String code);
 
 }
